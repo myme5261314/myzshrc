@@ -26,8 +26,11 @@ else
         fi
     fi
 fi
-
-source ~/library/antigen/antigen.zsh
+if [[ "$CURRENT_OS" == "OS X" ]]; then
+    source $(brew --prefix)/share/antigen/antigen.zsh
+else;
+    source ~/library/antigen/antigen.zsh
+fi
 # call antigen update on your terminal and it will update the oh-my-zsh repository
 # Load the oh-my-zsh's library.
 antigen bundle robbyrussell/oh-my-zsh lib/
