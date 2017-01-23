@@ -28,6 +28,7 @@ else
 fi
 if [[ "$CURRENT_OS" == "OS X" ]]; then
     source $(brew --prefix)/share/antigen/antigen.zsh
+    if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 else;
     source ~/library/antigen/antigen.zsh
 fi
@@ -79,7 +80,11 @@ fi
 #source /usr/local/opt/chruby/share/chruby/auto.sh
 
 # zsh
-alias vim="stty stop '' -ixoff ; vim"
+if [[ "$CURRENT_OS" == "OS X" ]]; then
+    alias vim="stty stop -ixoff ; vim"
+else;
+    alias vim="stty stop '' -ixoff ; vim"
+fi
 # `Frozing' tty, so after any command terminal settings will be restored
  ttyctl -f
 
@@ -87,8 +92,12 @@ alias vim="stty stop '' -ixoff ; vim"
  # No ttyctl, so we need to save and then restore terminal settings
  vim()
  {
-     local STTYOPTS="$(stty --save)"
-     stty stop '' -ixoff
+     local STTYOPTS="$(stty -g)"
+     if [[ "$CURRENT_OS" == "OS X" ]]; then
+         stty stop -ixoff
+     else;
+         stty stop '' -ixoff
+     fi
      command vim "$@"
      stty "$STTYOPTS"
  }
@@ -229,3 +238,4 @@ eval alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=
 eval "$(thefuck --alias)"
 # You can use whatever you want as an alias, like for Mondays:
 eval "$(thefuck --alias FUCK)"
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
