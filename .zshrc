@@ -2,6 +2,10 @@
 export LANG='en_US.UTF-8'
 export LC_ALL="en_US.UTF-8"
 
+
+# Fasd init
+eval "$(fasd --init auto)"
+
 #https://joshldavis.com/2014/07/26/oh-my-zsh-is-a-disease-antigen-is-the-vaccine/
 #
 # OS Detection
@@ -30,7 +34,7 @@ if [[ "$CURRENT_OS" == "OS X" ]]; then
     source $(brew --prefix)/share/antigen/antigen.zsh
     if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 else;
-    source ~/library/antigen/antigen.zsh
+    source /usr/share/zsh-antigen/antigen.zsh
 fi
 # call antigen update on your terminal and it will update the oh-my-zsh repository
 # Load the oh-my-zsh's library.
