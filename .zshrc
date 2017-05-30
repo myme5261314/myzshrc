@@ -42,6 +42,7 @@ antigen bundle robbyrussell/oh-my-zsh lib/
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
+antigen bundle git-flow
 antigen bundle tmuxinator
 antigen bundle osx
 antigen bundle ruby
@@ -237,9 +238,10 @@ alias e='f -e emacsclient -t' # quick opening files with xdg-open
 #export COCOS_TEMPLATES_ROOT=/Users/guanghui/Github/fireball/cocos2d-x/templates
 #export PATH=$COCOS_TEMPLATES_ROOT:$PATH
 
-eval alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD && print -s $TF_CMD'
-#eval "$(thefuck --alias)"
-eval "$(thefuck --alias)"
+eval $(thefuck --alias)
 # You can use whatever you want as an alias, like for Mondays:
-eval "$(thefuck --alias FUCK)"
+eval $(thefuck --alias FUCK)
+alias fuck-it='export THEFUCK_REQUIRE_CONFIRMATION=False; fuck; export THEFUCK_REQUIRE_CONFIRMATION=True'
+
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export PATH="/usr/local/sbin:$PATH"
