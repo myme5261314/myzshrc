@@ -97,15 +97,16 @@ fi
  # No ttyctl, so we need to save and then restore terminal settings
  vim()
  {
-     local STTYOPTS="$(stty -g)"
-     if [[ "$CURRENT_OS" == "OS X" ]]; then
-         stty stop -ixoff
-     else;
-         stty stop '' -ixoff
-     fi
-     command vim "$@"
-     stty "$STTYOPTS"
+    if [[ "$CURRENT_OS" == "OS X" ]]; then
+        local STTYOPTS="$(stty -g)"
+    else;
+        local STTYOPTS="$(stty --save)"
+    fi
+    stty stop '' -ixoff
+    command vim "$@"
+    stty "$STTYOPTS"
  }
+
 
  alias rake="noglob rake"
 
@@ -243,5 +244,6 @@ eval $(thefuck --alias)
 eval $(thefuck --alias FUCK)
 alias fuck-it='export THEFUCK_REQUIRE_CONFIRMATION=False; fuck; export THEFUCK_REQUIRE_CONFIRMATION=True'
 
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export PATH="/usr/local/sbin:$PATH"
